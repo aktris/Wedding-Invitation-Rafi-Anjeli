@@ -1,0 +1,165 @@
+:root {
+    --bg-cream: #FCF8F2; 
+    --text-brown: #5C4028; 
+    --accent-gold: #8B6A4F; 
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-cream);
+    color: var(--text-brown);
+    line-height: 1.8;
+    overflow-x: hidden;
+}
+
+.lock-scroll { overflow: hidden; height: 100vh; }
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.mt-3 { margin-top: 15px; }
+.mt-4 { margin-top: 30px; }
+.mt-5 { margin-top: 50px; }
+.pb-5 { padding-bottom: 50px; }
+
+/* Typography */
+.font-script { font-family: 'Great Vibes', cursive; font-weight: 400; color: var(--text-brown); }
+.font-serif { font-family: 'Playfair Display', serif; }
+.italic { font-style: italic; }
+.font-bold { font-weight: 700; }
+
+.title-script { font-size: 3.5rem; line-height: 1.2; margin: 10px 0; }
+.nama-script { font-size: 2.8rem; margin: 15px 0 5px; }
+
+/* Buttons */
+.btn-outline {
+    background: transparent; border: 1px solid var(--text-brown); color: var(--text-brown);
+    padding: 10px 25px; border-radius: 25px; text-decoration: none; display: inline-block;
+    font-family: inherit; font-size: 0.9rem; transition: 0.3s; cursor: pointer;
+}
+.btn-outline:hover { background: var(--text-brown); color: var(--bg-cream); }
+
+/* Loader Cover */
+#loader {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; justify-content: center; align-items: center;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+/* Layout Umum */
+section { padding: 50px 20px; }
+.container { max-width: 600px; margin: 0 auto; position: relative; }
+
+/* VINTAGE FRAME */
+.vintage-frame {
+    border: 1px solid var(--accent-gold);
+    outline: 2px solid var(--accent-gold);
+    outline-offset: -6px; 
+    padding: 40px 30px; position: relative;
+    background: transparent; margin: 20px 0;
+}
+.corner-ornament { position: absolute; width: 40px; height: 40px; }
+.top-left { top: -2px; left: -2px; background: var(--bg-cream); }
+.top-right { top: -2px; right: -2px; transform: scaleX(-1); background: var(--bg-cream); }
+.bottom-left { bottom: -2px; left: -2px; transform: scaleY(-1); background: var(--bg-cream); }
+.bottom-right { bottom: -2px; right: -2px; transform: scale(-1, -1); background: var(--bg-cream); }
+
+.ayat-text { font-size: 1rem; color: var(--accent-gold); font-weight: 500; }
+.ayat-sumber { margin-top: 20px; color: var(--accent-gold); font-weight: 600; }
+
+/* MEMPELAI SECTION */
+.person-box { margin: 40px 0; }
+.divider-img { width: 100%; max-width: 250px; margin: 15px auto; display: block; opacity: 0.8; }
+.bottom-flip { transform: scaleY(-1); }
+
+/* Wreath (Lingkaran Daun) */
+.foto-with-wreath {
+    position: relative; width: 220px; height: 220px; margin: 0 auto;
+    display: flex; justify-content: center; align-items: center;
+}
+.wreath-border {
+    position: absolute; width: 100%; height: 100%;
+    border: 12px dotted rgba(139, 106, 79, 0.4); 
+    border-radius: 50%; padding: 5px;
+}
+.wreath-border::before {
+    content: ''; position: absolute; inset: 4px;
+    border: 2px solid var(--accent-gold); border-radius: 50%;
+}
+.foto-bulat {
+    width: 160px; height: 160px; border-radius: 50%;
+    overflow: hidden; z-index: 1; border: 3px solid var(--bg-cream);
+}
+.foto-bulat img { width: 100%; height: 100%; object-fit: cover; }
+
+.putra-putri { font-size: 0.9rem; margin-bottom: 5px; color: var(--accent-gold); }
+.ortu { font-size: 0.9rem; line-height: 1.6; color: var(--accent-gold); }
+.simbol-dan { display: flex; align-items: center; justify-content: center; margin: -10px 0; }
+.side-ornament-mini { width: 40px; }
+.side-ornament-mini.right { transform: scaleX(-1); }
+
+/* COUNTDOWN SECTION ELEGAN */
+.title-with-ornament { 
+    display: flex; justify-content: center; align-items: center; 
+    gap: 15px; margin-bottom: 30px; 
+}
+.side-ornament { width: 50px; }
+.side-ornament.right { transform: scaleX(-1); }
+
+.hari-circle {
+    position: relative; 
+    width: 140px; height: 140px; margin: 0 auto 15px;
+    border: 2px solid var(--accent-gold); 
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center; 
+    color: var(--text-brown);
+}
+.hari-content { text-align: center; }
+.num-big { 
+    font-size: 3rem; font-weight: 700; line-height: 1; margin-bottom: 2px; display: block;
+}
+.label-hari { font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; }
+
+.padi-svg { position: absolute; width: 22px; height: 90px; opacity: 0.6; }
+.padi-svg.left { left: 10px; }
+.padi-svg.right { right: 10px; transform: scaleX(-1); }
+
+.waktu-row { display: flex; justify-content: center; gap: 25px; margin-bottom: 30px; }
+.waktu-box { display: flex; flex-direction: column; }
+.num-small { font-size: 1.2rem; font-weight: 700; color: var(--text-brown); }
+.label-small { font-size: 0.75rem; font-weight: 600; color: var(--accent-gold); letter-spacing: 1.5px; }
+
+.tanggal-text { font-size: 1rem; margin-bottom: 20px; color: var(--accent-gold); }
+
+/* EVENT & MAPS */
+.box-acara { padding: 40px 20px; }
+.title-acara { font-size: 3rem; margin-bottom: 20px; }
+.tanggal-acara { font-size: 1.1rem; color: var(--accent-gold); margin-bottom: 10px; }
+.waktu-acara { font-size: 1rem; color: var(--accent-gold); margin-bottom: 20px; }
+.divider-img-tengah { width: 100%; max-width: 300px; display: block; margin: 0 auto; }
+
+.lokasi-text p { color: var(--accent-gold); font-size: 0.9rem; line-height: 1.6; }
+.footer-text p { color: var(--accent-gold); font-size: 0.9rem; line-height: 1.8; }
+
+/* GALERI SECTION */
+.galeri-grid {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 15px; 
+}
+.foto-item {
+    border-radius: 10px; 
+    overflow: hidden; 
+    border: 2px solid var(--accent-gold);
+    padding: 4px;
+    background: var(--bg-cream);
+    aspect-ratio: 4/5;
+}
+.foto-item img {
+    width: 100%; height: 100%; object-fit: cover; 
+    border-radius: 6px; transition: transform 0.5s ease;
+}
+.foto-item:hover img { transform: scale(1.05); }
+
+/* Sembunyikan ikon pecah bawaan browser */
+img { text-indent: -10000px; }
