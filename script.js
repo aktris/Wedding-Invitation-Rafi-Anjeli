@@ -1,48 +1,126 @@
-AOS.init({ duration: 1000, once: true });
+// --- URL GOOGLE SCRIPT ---
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwJnx4osfo-n8K1e6qeVmZhkAucHYF18J1FNpmswJOij6-U_sLATx741StzCk892iEsyw/exec';
 
-const btnOpen = document.getElementById('open-invitation');
-const loader = document.getElementById('loader');
-const mainContent = document.getElementById('main-content');
-const backsound = document.getElementById('backsound');
-
-btnOpen.addEventListener('click', () => {
-    // Play audio LANGSUNG saat diklik
-    try { 
-        backsound.play(); 
-    } catch(e) { 
-        console.log("Audio dicegah browser"); 
-    }
-
-    loader.style.opacity = '0';
-    setTimeout(() => {
-        loader.style.display = 'none';
-        mainContent.classList.remove('hidden');
-        document.body.classList.remove('lock-scroll');
-        AOS.refresh();
-    }, 1000);
+// ==============================
+// AOS INIT
+// ==============================
+AOS.init({
+    duration: 1200,
+    once: true,
+    easing: 'ease-in-out',
+    offset: 120
 });
 
-// Hitung Mundur Elegan
-const targetDate = new Date("June 6, 2026 07:30:00").getTime();
+const tombolBuka = document.getElementById('tombol-buka');
+const layarPembuka = document.getElementById('layar-pembuka');
+const isiUndangan = document.getElementById('isi-undangan');
+const musikLatar = document.getElementById('musik-latar');
+
+// ==============================
+// BUKA UNDANGAN
+// ==============================
+if (tombolBuka) {
+    tombolBuka.addEventListener('click', () => {
+        if (musikLatar && musikLatar.paused) {
+            musikLatar.play().catch(() => {});
+        }
+
+        layarPembuka.style.transform = 'translateY(-100%)';
+        layarPembuka.style.opacity = '0';
+        layarPembuka.style.transition = 'all 1s ease';
+
+        setTimeout(() => {
+            layarPembuka.style.display = 'none';
+            isiUndangan.classList.remove('sembunyi');
+            document.body.classList.remove('kunci-scroll');
+            initScrollAnimation();
+        }, 1000);
+    });
+}
+
+// ==============================
+// COUNTDOWN
+// ==============================
+const targetDate = new Date("June 1, 2026 07:30:00").getTime();
 
 setInterval(() => {
     const now = new Date().getTime();
     const distance = targetDate - now;
 
     if (distance > 0) {
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("hari").innerText =
+            Math.floor(distance / (1000 * 60 * 60 * 24))
+            .toString().padStart(2, '0');
 
-        document.getElementById("hari-val").innerText = days;
-        document.getElementById("jam-val").innerText = hours < 10 ? "0" + hours : hours;
-        document.getElementById("mnt-val").innerText = minutes < 10 ? "0" + minutes : minutes;
-        document.getElementById("dtk-val").innerText = seconds < 10 ? "0" + seconds : seconds;
-    } else {
-        document.getElementById("hari-val").innerText = "00";
-        document.getElementById("jam-val").innerText = "00";
-        document.getElementById("mnt-val").innerText = "00";
-        document.getElementById("dtk-val").innerText = "00";
+        document.getElementById("jam").innerText =
+            Math.floor((distance % (1000 * 60 * 60 * 24)) /
+            (1000 * 60 * 60))
+            .toString().padStart(2, '0');
+
+        document.getElementById("menit").innerText =
+            Math.floor((distance % (1000 * 60 * 60)) /
+            (1000 * 60))
+            .toString().padStart(2, '0');
+
+        document.getElementById("detik").innerText =
+            Math.floor((distance % (1000 * 60)) / 1000)
+            .toString().padStart(2, '0');
     }
 }, 1000);
+
+// ==============================
+// FOTO MUNCUL SATU SATU
+// ==============================
+function initScrollAnimation() {
+    const allItems = document.querySelectorAll(
+        '.section-teks, .section-full, .kotak-acara-modern, .kotak-bank'
+    );
+
+    allItems.forEach(item => {
+        item.classList.add('scroll-animate');
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting){
+                entry.target.classList.add('show');
+            }
+        });
+    }, {
+        threshold: 0.15
+    });
+
+    allItems.forEach(item => observer.observe(item));
+
+    // FOTO SATU-SATU
+    const fotoItems = document.querySelectorAll('.item-foto');
+
+    const fotoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting){
+
+                fotoItems.forEach((foto, index) => {
+                    setTimeout(() => {
+                        foto.classList.add('show');
+                    }, index * 250); // muncul satu satu
+                });
+
+                fotoObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.2
+    });
+
+    const galeri = document.querySelector('.susunan-galeri');
+    if(galeri){
+        fotoObserver.observe(galeri);
+    }
+}
+
+// auto start kalau undangan udah kebuka
+window.addEventListener('load', () => {
+    if (!isiUndangan.classList.contains('sembunyi')) {
+        initScrollAnimation();
+    }
+});
