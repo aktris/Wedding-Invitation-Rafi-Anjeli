@@ -124,3 +124,24 @@ window.addEventListener('load', () => {
         initScrollAnimation();
     }
 });
+
+// ==============================
+// FUNGSI SALIN TEKS (COPY REKENING)
+// ==============================
+function salinTeks(teks, tombol) {
+    navigator.clipboard.writeText(teks).then(() => {
+        // Simpan icon asli
+        let iconAsli = tombol.innerHTML;
+        
+        // Ubah jadi icon ceklis dengan ukuran 16x16 biar tombol gak berubah ukurannya
+        tombol.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/></svg>`;
+        
+        // Kembalikan ke icon asli setelah 2 detik
+        setTimeout(() => {
+            tombol.innerHTML = iconAsli;
+        }, 2000);
+    }).catch(err => {
+        console.error('Gagal menyalin teks: ', err);
+        alert('Gagal menyalin teks, silakan coba lagi!');
+    });
+}
